@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.lang.model.util.ElementScanner6;
+
 
 public class EvalVisitor extends CalculatorBaseVisitor<Double> {
 
@@ -46,13 +48,8 @@ Scanner sc = new Scanner(System.in);
     }
 
     @Override
-<<<<<<< HEAD
-    public  Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
-
-=======
     public Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
         
->>>>>>> 427ce3005b730ab81137455e2661a1ca17026981
         Double value;
         String id = ctx.ID().getText();
 
@@ -66,6 +63,11 @@ Scanner sc = new Scanner(System.in);
         }
 
         return value;
+    }
+
+    @Override
+    public Double visitParenthesisExpr(CalculatorParser.ParenthesisExprContext ctx){
+        return this.visit(ctx.expr());
     }
 
     @Override
@@ -94,37 +96,35 @@ Scanner sc = new Scanner(System.in);
 
 			switch (ctx.op.getType()) {
 					case CalculatorParser.LESS:
-<<<<<<< HEAD
-							//System.out.println(left < right);
-							return left < right ? 1.0 : 0.0;
+                        return left < right ? 1.0 : 0.0;
 					case CalculatorParser.LESS_EQ:
-						//	System.out.println(left <= right);
-							return left <= right ? 1.0 : 0.0;
+                        return left <= right ? 1.0 : 0.0;
 					case CalculatorParser.GREATER:
-							//System.out.println(left > right);
-							return left > right ? 1.0 : 0.0;
+                        return left > right ? 1.0 : 0.0;
 					case CalculatorParser.GREATER_EQ:
-						//	System.out.println(left >= right);
-							return left >= right ? 1.0 : 0.0;
-					case CalculatorParser.COMPARE:
-						//	System.out.println(left == right);
-=======
-							return left < right ? 1.0 : 0.0;
-					case CalculatorParser.LESS_EQ:
-							return left <= right ? 1.0 : 0.0;
-					case CalculatorParser.GREATER:
-							return left > right ? 1.0 : 0.0;
-					case CalculatorParser.GREATER_EQ:
-							return left >= right ? 1.0 : 0.0;
-					case CalculatorParser.COMPARE:
->>>>>>> 427ce3005b730ab81137455e2661a1ca17026981
-							return left == right ? 1.0 : 0.0;
+                        return left >= right ? 1.0 : 0.0;
+                    case CalculatorParser.COMPARE:
+                        System.out.println("hi from checkpoint java");
+                        System.out.println("left: " + left + "\nright: " + right);
+                        //Double res = left == right ? 1.0 : 0.0;
+                        //System.out.println("return val: " +res);
+                        if(left != right)
+                        {
+                            System.out.println("mahhh");
+                            return 0.0;
+                        }
+                        else
+                        {
+                            System.out.println("trueeee");
+                            return 1.0;
+                        }
+                       // return left == right ? 1.0 : 0.0;
 					case CalculatorParser.NOT_EQ:
-						//	System.out.println(left != right);
-							return left != right ? 1.0 : 0.0;
+                        //	System.out.println(left != right);
+                        return left != right ? 1.0 : 0.0;
 
 					default:
-							throw new RuntimeException("unknown operator");
+                        throw new RuntimeException("unknown operator");
 			}
 		}
 
@@ -176,11 +176,17 @@ Scanner sc = new Scanner(System.in);
         boolean evaluated = false;
 
         for(CalculatorParser.Condition_blockContext condition : conditions) {
-
+            System.out.println("hi from if_stat java");
             Double value = this.visit(condition.expr());
-            System.out.println(value);
-            Boolean toEvaluate = (value != 0) ? true : false;
-
+            System.out.println("value after if eval: " + value);
+            Boolean toEvaluate;
+            if(value != 0)
+            {
+                toEvaluate = true;
+            }
+            else{
+                toEvaluate = false;
+            }
             if(toEvaluate) {
                 evaluated = true;
                 // evaluate this block whose expr==true

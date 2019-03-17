@@ -34,10 +34,10 @@ expr:
     | SUB expr                                  #negateExpr
     | expr op=(MUL | DIV | ADD | SUB) expr      #mathExpr
     | expr op=(COMPARE | GREATER | LESS
-                | GREATER_EQ | LESS_EQ | NOT_EQ) expr    #comparisonExpr
-    | expr op=(AND | OR ) expr             #booleanExpr
-		| op=NOT expr 															#notExpr
-		| INT                                       #intAtom
+    | GREATER_EQ | LESS_EQ | NOT_EQ) expr       #comparisonExpr
+    | expr op=(AND | OR ) expr                  #booleanExpr
+    | op=NOT expr 								#notExpr
+    | INT                                       #intAtom
     | ID                                        #idAtom
     | func                                      #functionExpr
     ;
@@ -45,7 +45,7 @@ expr:
 func:
     f=READ '()'                                 #readFunc
     | f=(PRINT | SQRT | SIN 
-            | COS | EX | LN ) '(' a=expr ')'    #argumentFunc
+    | COS | EX | LN ) '(' a=expr ')'            #argumentFunc
     ;
 
 fragment DIGIT : [0-9] ;
