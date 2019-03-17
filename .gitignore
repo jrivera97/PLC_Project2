@@ -1,0 +1,7 @@
+# Antlr generated files
+*.java
+*.tokens
+*.interp
+
+# Compiled class file
+*.class

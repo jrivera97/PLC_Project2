@@ -1,0 +1,105 @@
+/*Test for comments*/
+/*this is a comment */
+/* expressions are not evaluated like 3+4*/
+
+/*Expected output:
+output received: */
+
+/*Test for basic expressions and expressions with variables*/
+52+48
+-3+2-4
+3+2-4
+3+(1*2)
+x=9
+x
+x=x+5-4
+x
+
+/*Expected output:  100
+                   -5
+                    1
+                    9
+                    10           
+
+generated output: 100
+                    -5
+                    1
+                    9
+                    10 */  
+
+/*Test for boolean expressions*/
+!0
+1 && 1
+0 || 1
+1 || 0
+
+!1
+0 && 1
+0 && 0
+0 || 0
+
+/*Expected output: 4 1's and 4 0's*/
+/*Generated output: 4 1's and 4 0's*/
+
+/*Test for precedence*/
+12/3 + 1
+2*(2+1)
+10 + 21/7 - 6
+2*3 + 10 - 8
+
+/*Expected output:  5
+                    6
+                    7
+                    8
+Generated output:   5
+                    6
+                    7
+                    8  */
+
+/*Test Special Expression read and sqrt*/
+read()
+/*user input, for our test we use the number 5*/
+5
+sqrt(23)
+
+/*Expected output:  5
+                    4.79583152331271954159
+Generated output:   5
+                    4.795831523312719  <- note our number is not as precise as a result of java's Math library
+                    */
+
+/*Test Statement Expressions*/
+"HelloWorld"
+print(6)
+
+/*Expected output:  HelloWorld6
+Generated output:   HelloWorld6 */
+
+c(0)
+c(3.14159265)
+s(0)
+s(3.14159265)
+l(2-1)
+l(3)
+e(2-2)
+e(3)
+/*Expected output:  1
+                    -1
+                    0
+                    3.5897930298416118E-9
+                    0
+                    1.0986122886681098
+                    1
+                    20.085536923187668
+
+Generated output:   1 
+                    -1
+                    0
+                    3.5897930298416118E-9
+                    0
+                    1.0986122886681098
+                    1
+                    20.085536923187668
+                    */
+
+
