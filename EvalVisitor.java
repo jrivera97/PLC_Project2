@@ -17,7 +17,7 @@ Scanner sc = new Scanner(System.in);
 
     @Override
     public  Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
-        
+
         Double value;
         String id = ctx.getText();
 
@@ -60,26 +60,55 @@ Scanner sc = new Scanner(System.in);
 
 			switch (ctx.op.getType()) {
 					case CalculatorParser.LESS:
-							System.out.println(left < right);
+							//System.out.println(left < right);
 							return left < right ? 1.0 : 0.0;
 					case CalculatorParser.LESS_EQ:
-							System.out.println(left <= right);
+						//	System.out.println(left <= right);
 							return left <= right ? 1.0 : 0.0;
 					case CalculatorParser.GREATER:
-							System.out.println(left > right);
+							//System.out.println(left > right);
 							return left > right ? 1.0 : 0.0;
 					case CalculatorParser.GREATER_EQ:
-							System.out.println(left >= right);
+						//	System.out.println(left >= right);
 							return left >= right ? 1.0 : 0.0;
 					case CalculatorParser.COMPARE:
-							System.out.println(left == right);
+						//	System.out.println(left == right);
 							return left == right ? 1.0 : 0.0;
+					case CalculatorParser.NOT_EQ:
+						//	System.out.println(left != right);
+							return left != right ? 1.0 : 0.0;
 
 					default:
 							throw new RuntimeException("unknown operator");
 			}
 		}
 
+		@Override
+		public Double visitBooleanExpr(CalculatorParser.BooleanExprContext ctx) {
+			Double left = this.visit(ctx.expr(0));
+			Double right = this.visit(ctx.expr(1));
+
+			switch(ctx.op.getType()) {
+					case CalculatorParser.AND:
+						//System.out.println(left && right);
+						return ((left != 0 ? true : false) && (right != 0 ? true : false)) ? 1.0 : 0.0;
+
+					case CalculatorParser.OR:
+						//System.out.println(left || right);
+						return ((left != 0 ? true : false) || (right != 0 ? true : false )) ? 1.0 : 0.0;
+
+						default:
+								throw new RuntimeException("unknown comparator");
+
+			}
+		}
+		@Override
+		public Double visitNotExpr(CalculatorParser.NotExprContext ctx) {
+			Double left = this.visit(ctx.expr());
+			//System.out.println("notexpr: " + !left);
+			
+			return !(left != 0 ? true : false) ? 1.0 : 0.0;
+		}
 /*
     @Override
     public Double visitStatExpr(CalculatorParser.StatExprContext ctx) {
