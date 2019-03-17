@@ -42,13 +42,9 @@ expr:
     ;
 
 func:
-    f=READ '()'
-    | f=PRINT '(' a=expr ')'
-    | f=SQRT'(' a=expr ')'
-    | f=SIN'(' a=expr ')'
-    | f=COS'(' a=expr ')'
-    | f=EX '(' a=expr ')'
-    | f=LN '(' a=expr ')'
+    f=READ '()'                                 #readFunc
+    | f=(PRINT | SQRT | SIN 
+            | COS | EX | LN ) '(' a=expr ')'    #argumentFunc
     ;
 
 fragment DIGIT : [0-9] ;

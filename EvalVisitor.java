@@ -11,15 +11,45 @@ private HashMap<String, Double> memory = new HashMap<String, Double>();
 Scanner sc = new Scanner(System.in);
 
     @Override
-    public  Double visitIntAtom(CalculatorParser.IntAtomContext ctx){
-        return Double.valueOf(ctx.getText());
+    public Double visitTopExpr(CalculatorParser.TopExprContext ctx) {
+        Double value = this.visit(ctx.expr());
+        if (value % 1 == 0) {
+            System.out.println(value.intValue());
+        }
+        else {
+            System.out.println(value);
+        }
+        return 0.0;
     }
 
     @Override
-    public  Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
+    public Double visitAssignmentStat(CalculatorParser.AssignmentStatContext ctx) {
+        
+        Double value = this.visit(ctx.expr());
+        String id = ctx.ID().getText();
+
+        if (memory.containsKey(id)) {
+            // variable already defined
+            memory.replace(id, value);
+        }
+        else {
+            // variable not defined, create a spot in memory
+            memory.put(id, value);
+        }
+
+        return 0.0;
+    }
+
+    @Override
+    public Double visitIntAtom(CalculatorParser.IntAtomContext ctx){
+        return Double.valueOf(ctx.INT().getText());
+    }
+
+    @Override
+    public Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
         
         Double value;
-        String id = ctx.getText();
+        String id = ctx.ID().getText();
 
         if (memory.containsKey(id)) {
             // variable already defined
@@ -41,14 +71,13 @@ Scanner sc = new Scanner(System.in);
 
         switch (ctx.op.getType()) {
             case (CalculatorParser.ADD):
-                System.out.println(left+right);
                 return left + right;
             case (CalculatorParser.SUB):
                 return left - right;
-						case (CalculatorParser.MUL):
-								return left * right;
-						case (CalculatorParser.DIV):
-								return left / right;
+            case (CalculatorParser.MUL):
+                return left * right;
+            case (CalculatorParser.DIV):
+                return left / right;
         }
         return 1.0;
     }
@@ -60,19 +89,14 @@ Scanner sc = new Scanner(System.in);
 
 			switch (ctx.op.getType()) {
 					case CalculatorParser.LESS:
-							System.out.println(left < right);
 							return left < right ? 1.0 : 0.0;
 					case CalculatorParser.LESS_EQ:
-							System.out.println(left <= right);
 							return left <= right ? 1.0 : 0.0;
 					case CalculatorParser.GREATER:
-							System.out.println(left > right);
 							return left > right ? 1.0 : 0.0;
 					case CalculatorParser.GREATER_EQ:
-							System.out.println(left >= right);
 							return left >= right ? 1.0 : 0.0;
 					case CalculatorParser.COMPARE:
-							System.out.println(left == right);
 							return left == right ? 1.0 : 0.0;
 
 					default:
