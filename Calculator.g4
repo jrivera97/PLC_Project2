@@ -23,7 +23,7 @@ stat_block:
 
 stat:
     expr                                        #topExpr
-    | ID '=' e=expr                             #assignmentStat
+    | ID '=' expr                               #assignmentStat
     | '"' ID? '"'                               #stringStat
     | COMM NL                                   #comment
     | '}'? NL                                   #newLine
