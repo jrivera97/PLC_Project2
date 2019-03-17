@@ -29,14 +29,15 @@ stat:
     | '}'? NL                                   #newLine
     ;
 
-expr: 
+expr:
     '(' expr ')'                                #parenthesisExpr
     | SUB expr                                  #negateExpr
     | expr op=(MUL | DIV | ADD | SUB) expr      #mathExpr
     | expr op=(COMPARE | GREATER | LESS
-                | GREATER_EQ | LESS_EQ) expr    #comparisonExpr
-    | expr op=(AND | OR | NOT) expr             #booleanExpr
-    | INT                                       #intAtom 
+                | GREATER_EQ | LESS_EQ | NOT_EQ) expr    #comparisonExpr
+    | expr op=(AND | OR ) expr             #booleanExpr
+		| op=NOT expr 															#notExpr
+		| INT                                       #intAtom
     | ID                                        #idAtom
     | func                                      #functionExpr
     ;
@@ -67,6 +68,7 @@ SUB : '-' ;
 ADD : '+' ;
 EQ : '=' ;
 COMPARE : '==' ;
+NOT_EQ : '!=';
 GREATER : '>' ;
 LESS : '<' ;
 GREATER_EQ : '>=' ;
