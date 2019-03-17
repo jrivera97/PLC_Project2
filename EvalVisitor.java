@@ -12,7 +12,25 @@ Scanner sc = new Scanner(System.in);
 
     @Override
     public  Double visitIntAtom(CalculatorParser.IntAtomContext ctx){
-            return Double.valueOf(ctx.getText());
+        return Double.valueOf(ctx.getText());
+    }
+
+    @Override
+    public  Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
+        
+        Double value;
+        String id = ctx.getText();
+
+        if (memory.containsKey(id)) {
+            // variable already defined
+            value = (memory.get(id));
+        }
+        else {
+            // default value to 0
+            value = 0;
+        }
+
+        return value;
     }
 
     @Override

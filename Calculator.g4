@@ -22,11 +22,11 @@ stat_block:
 ;
 
 stat:
-    expr
-    | ID '=' e=expr
-    | '"' ID? '"'
-    | COMM NL
-    | '}'? NL
+    expr                                        #topExpr
+    | ID '=' e=expr                             #assignmentStat
+    | '"' ID? '"'                               #stringStat
+    | COMM NL                                   #comment
+    | '}'? NL                                   #newLine
     ;
 
 expr: 
