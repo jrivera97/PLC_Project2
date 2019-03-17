@@ -27,15 +27,47 @@ Scanner sc = new Scanner(System.in);
                 return left + right;
             case (CalculatorParser.SUB):
                 return left - right;
+						case (CalculatorParser.MUL):
+								return left * right;
+						case (CalculatorParser.DIV):
+								return left / right;
         }
         return 1.0;
     }
+
+		@Override
+		public Double visitComparisonExpr(CalculatorParser.ComparisonExprContext ctx) {
+			Double left = this.visit(ctx.expr(0));
+			Double right = this.visit(ctx.expr(1));
+
+			switch (ctx.op.getType()) {
+					case CalculatorParser.LESS:
+							System.out.println(left < right);
+							return left < right ? 1.0 : 0.0;
+					case CalculatorParser.LESS_EQ:
+							System.out.println(left <= right);
+							return left <= right ? 1.0 : 0.0;
+					case CalculatorParser.GREATER:
+							System.out.println(left > right);
+							return left > right ? 1.0 : 0.0;
+					case CalculatorParser.GREATER_EQ:
+							System.out.println(left >= right);
+							return left >= right ? 1.0 : 0.0;
+					case CalculatorParser.COMPARE:
+							System.out.println(left == right);
+							return left == right ? 1.0 : 0.0;
+
+					default:
+							throw new RuntimeException("unknown operator");
+			}
+		}
+
 /*
     @Override
     public Double visitStatExpr(CalculatorParser.StatExprContext ctx) {
-        
+
         Double value = this.visit(ctx.expr());
-        
+
         if (value % 1 == 0) {
             System.out.println((int)value);
         }
@@ -68,7 +100,7 @@ Scanner sc = new Scanner(System.in);
             // evaluate the else-stat_block (if present == not null)
             this.visit(ctx.stat_block());
         }
-    
+
         return 0.0;
     }
 /*
@@ -91,4 +123,3 @@ Scanner sc = new Scanner(System.in);
     }
     */
 }
-
