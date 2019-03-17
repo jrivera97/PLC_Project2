@@ -27,7 +27,7 @@ Scanner sc = new Scanner(System.in);
         }
         else {
             // default value to 0
-            value = 0;
+            value = 0.0;
         }
 
         return value;
