@@ -45,7 +45,7 @@ expr:
 func:
     f=READ '()'                                 #readFunc
     | f=(PRINT | SQRT | SIN 
-    | COS | EX | LN ) '(' a=expr ')'            #argumentFunc
+        | COS | EX | LN ) '(' expr ')'          #argumentFunc
     ;
 
 fragment DIGIT : [0-9] ;
@@ -57,10 +57,10 @@ WHILE : 'while';
 READ : 'read' ;
 SQRT : 'sqrt' ;
 PRINT : 'print' ;
-EX : 'e';
-COS : 'c';
-SIN : 's';
-LN : 'l';
+EX : 'e' ;
+COS : 'c' ;
+SIN : 's' ;
+LN : 'l' ;
 
 MUL : '*' ;
 DIV : '/' ;

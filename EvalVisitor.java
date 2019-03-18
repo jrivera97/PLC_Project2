@@ -89,71 +89,82 @@ Scanner sc = new Scanner(System.in);
         return 1.0;
     }
 
-		@Override
-		public Double visitComparisonExpr(CalculatorParser.ComparisonExprContext ctx) {
-			Double left = this.visit(ctx.expr(0));
-			Double right = this.visit(ctx.expr(1));
+    @Override
+    public Double visitComparisonExpr(CalculatorParser.ComparisonExprContext ctx) {
+        Double left = this.visit(ctx.expr(0));
+        Double right = this.visit(ctx.expr(1));
 
-			switch (ctx.op.getType()) {
-					case CalculatorParser.LESS:
-                        return left < right ? 1.0 : 0.0;
-					case CalculatorParser.LESS_EQ:
-                        return left <= right ? 1.0 : 0.0;
-					case CalculatorParser.GREATER:
-                        return left > right ? 1.0 : 0.0;
-					case CalculatorParser.GREATER_EQ:
-                        return left >= right ? 1.0 : 0.0;
-                    case CalculatorParser.COMPARE:
-                        System.out.println("hi from checkpoint java");
-                        System.out.println("left: " + left + "\nright: " + right);
-                        //Double res = left == right ? 1.0 : 0.0;
-                        //System.out.println("return val: " +res);
-                        if(left != right)
-                        {
-                            System.out.println("mahhh");
-                            return 0.0;
-                        }
-                        else
-                        {
-                            System.out.println("trueeee");
-                            return 1.0;
-                        }
-                       // return left == right ? 1.0 : 0.0;
-					case CalculatorParser.NOT_EQ:
-                        //	System.out.println(left != right);
-                        return left != right ? 1.0 : 0.0;
+        switch (ctx.op.getType()) {
+                case CalculatorParser.LESS:
+                    return (Double.compare(left, right) < 0) ? 1.0 : 0.0;
+                case CalculatorParser.LESS_EQ:
+                    return (Double.compare(left, right) <= 0 ) ? 1.0 : 0.0;
+                case CalculatorParser.GREATER:
+                    return (Double.compare(left, right) > 0) ? 1.0 : 0.0;
+                case CalculatorParser.GREATER_EQ:
+                    return (Double.compare(left, right) >= 0) ? 1.0 : 0.0;
+                case CalculatorParser.COMPARE:
+                    return (Double.compare(left, right) == 0) ? 1.0 : 0.0;
+                case CalculatorParser.NOT_EQ:
+                    return (Double.compare(left, right) != 0) ? 1.0 : 0.0; 
 
-					default:
-                        throw new RuntimeException("unknown operator");
-			}
+                default:
+                    throw new RuntimeException("unknown operator");
 		}
+	}
 
-		@Override
-		public Double visitBooleanExpr(CalculatorParser.BooleanExprContext ctx) {
-			Double left = this.visit(ctx.expr(0));
-			Double right = this.visit(ctx.expr(1));
+    @Override
+    public Double visitBooleanExpr(CalculatorParser.BooleanExprContext ctx) {
+        Double left = this.visit(ctx.expr(0));
+        Double right = this.visit(ctx.expr(1));
 
-			switch(ctx.op.getType()) {
-					case CalculatorParser.AND:
-						//System.out.println(left && right);
-						return ((left != 0 ? true : false) && (right != 0 ? true : false)) ? 1.0 : 0.0;
+        switch(ctx.op.getType()) {
+                case CalculatorParser.AND:
+                    return ((left != 0 ? true : false) && (right != 0 ? true : false)) ? 1.0 : 0.0;
 
-					case CalculatorParser.OR:
-						//System.out.println(left || right);
-						return ((left != 0 ? true : false) || (right != 0 ? true : false )) ? 1.0 : 0.0;
+                case CalculatorParser.OR:
+                    return ((left != 0 ? true : false) || (right != 0 ? true : false )) ? 1.0 : 0.0;
 
-						default:
-								throw new RuntimeException("unknown comparator");
+                    default:
+                            throw new RuntimeException("unknown comparator");
 
-			}
-		}
-		@Override
-		public Double visitNotExpr(CalculatorParser.NotExprContext ctx) {
-			Double left = this.visit(ctx.expr());
-			//System.out.println("notexpr: " + !left);
-			
-			return !(left != 0 ? true : false) ? 1.0 : 0.0;
-		}
+        }
+    }
+    @Override
+    public Double visitNotExpr(CalculatorParser.NotExprContext ctx) {
+        Double left = this.visit(ctx.expr());
+        return !(left != 0 ? true : false) ? 1.0 : 0.0;
+    }
+    
+    @Override
+    public Double visitFunctionExpr(CalculatorParser.FunctionExprContext ctx) {
+        return this.visit(ctx.func());
+    }
+
+    @Override
+    public Double visitReadFunc(CalculatorParser.ReadFuncContext ctx) {
+        return Double.parseDouble(sc.next());
+    }
+
+    @Override
+    public Double visitArgumentFunc(CalculatorParser.ArgumentFuncContext ctx) {
+        Double arg = this.visit(ctx.expr());
+        switch(ctx.f.getType()) {
+            case CalculatorParser.PRINT:
+                return arg;
+            case CalculatorParser.SQRT:
+                return Math.sqrt(arg);
+            case CalculatorParser.SIN:
+                return Math.sin(arg);
+            case CalculatorParser.COS:
+                return Math.cos(arg);
+            case CalculatorParser.EX:
+                return Math.exp(arg);
+            case CalculatorParser.LN:
+                return Math.log(arg);
+        }
+        return 0.0;
+    }
 /*
     @Override
     public Double visitStatExpr(CalculatorParser.StatExprContext ctx) {
@@ -176,17 +187,10 @@ Scanner sc = new Scanner(System.in);
         boolean evaluated = false;
 
         for(CalculatorParser.Condition_blockContext condition : conditions) {
-            System.out.println("hi from if_stat java");
+
             Double value = this.visit(condition.expr());
-            System.out.println("value after if eval: " + value);
-            Boolean toEvaluate;
-            if(value != 0)
-            {
-                toEvaluate = true;
-            }
-            else{
-                toEvaluate = false;
-            }
+            Boolean toEvaluate = (value != 0)? true : false;
+
             if(toEvaluate) {
                 evaluated = true;
                 // evaluate this block whose expr==true
