@@ -2,6 +2,6 @@
 *.java
 *.tokens
 *.interp
-
+*.txt
 # Compiled class file
 *.class
