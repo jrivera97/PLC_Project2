@@ -6,3 +6,8 @@ if (x==1) {
 else {
     print(4)
 }
+
+while(x<5) {
+    x = x+1
+    x
+}

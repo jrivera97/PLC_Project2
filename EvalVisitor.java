@@ -189,7 +189,7 @@ Scanner sc = new Scanner(System.in);
         for(CalculatorParser.Condition_blockContext condition : conditions) {
 
             Double value = this.visit(condition.expr());
-            Boolean toEvaluate = (value != 0)? true : false;
+            boolean toEvaluate = (value != 0)? true : false;
 
             if(toEvaluate) {
                 evaluated = true;
@@ -205,23 +205,23 @@ Scanner sc = new Scanner(System.in);
 
         return 0.0;
     }
-/*
+
     // while override
     @Override
     public Double visitWhile_stat(CalculatorParser.While_statContext ctx) {
 
-        Double value = this.visit(ctx.expr());
+        Double value = this.visit(ctx.condition_block().expr());
+        boolean toEvaluate = (value != 0)? true : false;
 
-        while(value.asBoolean()) {
+        while(toEvaluate) {
 
-            // evaluate the code block
-            this.visit(ctx.stat_block());
+            this.visit(ctx.condition_block().stat_block());
 
-            // evaluate the expression
-            value = this.visit(ctx.expr());
+            // evaluate condition and set boolean
+            value = this.visit(ctx.condition_block().expr());
+            toEvaluate = (value != 0)? true : false;
         }
 
-        return Double.VOID;
+        return 0.0;
     }
-    */
 }

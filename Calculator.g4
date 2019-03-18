@@ -14,7 +14,9 @@ if_stat: IF condition_block (ELSE IF condition_block)* (ELSE stat_block)?;
 
 while_stat: WHILE condition_block;
 
-condition_block: expr stat_block;
+for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block
+
+condition_block: '(' expr ')' stat_block;
 
 stat_block:
     '{' stat*
