@@ -15,18 +15,23 @@ Scanner sc = new Scanner(System.in);
     @Override
     public Double visitTopExpr(CalculatorParser.TopExprContext ctx) {
         Double value = this.visit(ctx.expr());
-        if (value % 1 == 0) {
-            System.out.println(value.intValue());
-        }
-        else {
-            System.out.println(value);
-        }
-        return 0.0;
-    }
+		try{
+
+							if (value % 1 == 0) {
+			            System.out.println(value.intValue());
+			        }
+			        else {
+			            System.out.println(value);
+			        }
+		} catch (RuntimeException e) {
+
+		}
+		        return 0.0;
+		    }
 
     @Override
     public Double visitAssignmentStat(CalculatorParser.AssignmentStatContext ctx) {
-        
+
         Double value = this.visit(ctx.expr());
         String id = ctx.ID().getText();
 
@@ -49,7 +54,7 @@ Scanner sc = new Scanner(System.in);
 
     @Override
     public Double visitIdAtom(CalculatorParser.IdAtomContext ctx){
-        
+
         Double value;
         String id = ctx.ID().getText();
 
@@ -106,7 +111,7 @@ Scanner sc = new Scanner(System.in);
                 case CalculatorParser.COMPARE:
                     return (Double.compare(left, right) == 0) ? 1.0 : 0.0;
                 case CalculatorParser.NOT_EQ:
-                    return (Double.compare(left, right) != 0) ? 1.0 : 0.0; 
+                    return (Double.compare(left, right) != 0) ? 1.0 : 0.0;
 
                 default:
                     throw new RuntimeException("unknown operator");
@@ -133,9 +138,9 @@ Scanner sc = new Scanner(System.in);
     @Override
     public Double visitNotExpr(CalculatorParser.NotExprContext ctx) {
         Double left = this.visit(ctx.expr());
-        return !(left != 0 ? true : false) ? 1.0 : 0.0;
+        return !(Double.compare(left, 0) != 0 ? true : false) ? 1.0 : 0.0;
     }
-    
+
     @Override
     public Double visitFunctionExpr(CalculatorParser.FunctionExprContext ctx) {
         return this.visit(ctx.func());
@@ -151,7 +156,8 @@ Scanner sc = new Scanner(System.in);
         Double arg = this.visit(ctx.expr());
         switch(ctx.f.getType()) {
             case CalculatorParser.PRINT:
-                return arg;
+								System.out.println(ctx.expr().getText());
+                return null;
             case CalculatorParser.SQRT:
                 return Math.sqrt(arg);
             case CalculatorParser.SIN:
@@ -206,6 +212,7 @@ Scanner sc = new Scanner(System.in);
         return 0.0;
     }
 
+
     // while override
     @Override
     public Double visitWhile_stat(CalculatorParser.While_statContext ctx) {
@@ -224,4 +231,5 @@ Scanner sc = new Scanner(System.in);
 
         return 0.0;
     }
+
 }
