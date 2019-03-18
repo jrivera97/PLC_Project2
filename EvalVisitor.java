@@ -24,7 +24,7 @@ Scanner sc = new Scanner(System.in);
 			            System.out.println(value);
 			        }
 		} catch (RuntimeException e) {
-			
+
 		}
 		        return 0.0;
 		    }
@@ -195,7 +195,7 @@ Scanner sc = new Scanner(System.in);
         for(CalculatorParser.Condition_blockContext condition : conditions) {
 
             Double value = this.visit(condition.expr());
-            Boolean toEvaluate = (value != 0)? true : false;
+            boolean toEvaluate = (value != 0)? true : false;
 
             if(toEvaluate) {
                 evaluated = true;
@@ -212,22 +212,24 @@ Scanner sc = new Scanner(System.in);
         return 0.0;
     }
 
-    // // while override
-    // @Override
-    // public Double visitWhile_stat(CalculatorParser.While_statContext ctx) {
-		//
-    //     Double value = this.visit(ctx.expr());
-		//
-    //     while(value.asBoolean()) {
-		//
-    //         // evaluate the code block
-    //         this.visit(ctx.stat_block());
-		//
-    //         // evaluate the expression
-    //         value = this.visit(ctx.expr());
-    //     }
-		//
-    //     return Double.VOID;
-    // }
+
+    // while override
+    @Override
+    public Double visitWhile_stat(CalculatorParser.While_statContext ctx) {
+
+        Double value = this.visit(ctx.condition_block().expr());
+        boolean toEvaluate = (value != 0)? true : false;
+
+        while(toEvaluate) {
+
+            this.visit(ctx.condition_block().stat_block());
+
+            // evaluate condition and set boolean
+            value = this.visit(ctx.condition_block().expr());
+            toEvaluate = (value != 0)? true : false;
+        }
+
+        return 0.0;
+    }
 
 }
