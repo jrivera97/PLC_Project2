@@ -10,16 +10,16 @@ top_stat:
     | stat
 ;
 
-if_stat: IF condition_block (ELSE IF condition_block)* (ELSE stat_block)?;
+if_stat: IF condition_block NL? (ELSE IF condition_block)* NL? (ELSE stat_block)?;
 
 while_stat: WHILE condition_block;
 
-for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block
+for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block;
 
 condition_block: '(' expr ')' stat_block;
 
 stat_block:
-    '{' stat*
+    '{' stat* '}'
     | expr
 ;
 
@@ -28,7 +28,7 @@ stat:
     | ID '=' expr                               #assignmentStat
     | '"' ID? '"'                               #stringStat
     | COMM NL                                   #comment
-    | '}'? NL                                   #newLine
+    | NL                                        #newLine
     ;
 
 expr:
@@ -55,6 +55,7 @@ fragment DIGIT : [0-9] ;
 IF : 'if';
 ELSE : 'else';
 WHILE : 'while';
+FOR : 'for' ;
 
 READ : 'read' ;
 SQRT : 'sqrt' ;
