@@ -20,7 +20,7 @@ condition_block: '(' expr ')' stat_block;
 
 stat_block:
     '{' stat* '}'
-    | expr
+    | stat
 ;
 
 stat:
