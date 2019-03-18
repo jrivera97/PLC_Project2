@@ -1,8 +1,11 @@
 x=2
 x
+print(hello)
+1+5
 if (x==1) {
     print(1)
 }
 else {
     print(4)
 }
+6+5
