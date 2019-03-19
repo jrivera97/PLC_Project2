@@ -43,7 +43,8 @@ expr:
     '(' expr ')'                                #parenthesisExpr
     | RETURN expr                               #returnStat
     | SUB expr                                  #negateExpr
-    | expr op=(MUL | DIV | ADD | SUB) expr      #mathExpr
+    | expr op=(MUL | DIV) expr                  #multExpr
+    | expr op=(ADD | SUB) expr                  #addExpr
     | expr op=(COMPARE | GREATER | LESS
     | GREATER_EQ | LESS_EQ | NOT_EQ) expr       #comparisonExpr
     | expr op=(AND | OR ) expr                  #booleanExpr

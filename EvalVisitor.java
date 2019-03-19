@@ -70,6 +70,12 @@ public void clearScope() {
     }
 
     @Override
+    public Double visitStringStat(CalculatorParser.StringStatContext ctx) {
+        if (ctx.ID() != null) System.out.print(ctx.ID());
+        return null;
+    }
+
+    @Override
     public Double visitIntAtom(CalculatorParser.IntAtomContext ctx){
         return Double.valueOf(ctx.INT().getText());
     }
@@ -101,7 +107,12 @@ public void clearScope() {
     }
 
     @Override
-    public Double visitMathExpr(CalculatorParser.MathExprContext ctx) {
+    public Double visitNegateExpr(CalculatorParser.NegateExprContext ctx) {
+        return (-1*this.visit(ctx.expr()));
+    }
+
+    @Override
+    public Double visitAddExpr(CalculatorParser.AddExprContext ctx) {
 
         Double left = this.visit(ctx.expr(0));
         Double right = this.visit(ctx.expr(1));
@@ -111,6 +122,19 @@ public void clearScope() {
                 return left + right;
             case (CalculatorParser.SUB):
                 return left - right;
+            default:
+                throw new RuntimeException("unknown operator");
+        }
+    }
+
+
+    @Override
+    public Double visitMultExpr(CalculatorParser.MultExprContext ctx) {
+
+        Double left = this.visit(ctx.expr(0));
+        Double right = this.visit(ctx.expr(1));
+
+        switch (ctx.op.getType()) {
             case (CalculatorParser.MUL):
                 return left * right;
             case (CalculatorParser.DIV):
