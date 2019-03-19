@@ -9,11 +9,11 @@
 
 	In order to complete these steps, use these commands in terminal (assuming you have git, antlr4 and java installed)
 
-	```
-		git clone https://github.com/jrivera97/PLC_Project2.git
-		antlr4 Calculator.g4 -visitor
-		javac *.java
-		java Main <testfile>.txt
-	```
+		```
+			git clone https://github.com/jrivera97/PLC_Project2.git
+			antlr4 Calculator.g4 -visitor
+			javac *.java
+			java Main <testfile>.txt
+		```
 
 	Where <testfile>.txt is simply the name of the test file you wish to use
