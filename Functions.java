@@ -4,8 +4,16 @@ import java.util.Map;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import tl.antlr4.TLParser.ExpressionContext;
-
+//import CalculatorParser.antlr4.CalculatorParser.ExpressionContext;
+//import ParserRuleContext;
+import org.antlr.v4.runtime.atn.*;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
+import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 class Functions {
 	private List<TerminalNode> params;
@@ -17,7 +25,7 @@ class Functions {
 	}
 
 	ParserRuleContext getCtx() {
-		return this.ctx();
+		return this.ctx;
 	}
 	// public Double invoke(List<ExpressionContext> params, Map<String, Function> functions, Scope scope) {
   //       if (params.size() != this.params.size()) {
