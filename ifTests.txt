@@ -1,7 +1,20 @@
 x=2
 x
-print(hello)
-1+5
+x++
+x++
+x
+
+define myFunc(a,b)
+myFunc(1,2)
+
+if(2 == 1)
+	print(hi)
+if(2==1) print(hello)
+if (2==1) {
+	print(heyo)
+}
+
+
 if (x==1) {
     print(1)
 }
@@ -15,5 +28,7 @@ while(x<5) {
     x
 }
 
-4+5
+for(x=1;x<4;x++) {
+    print(jose)
+}
 
