@@ -8,6 +8,7 @@
 		4. Run the main program with the tests
 
 	In order to complete these steps, use these commands in terminal (assuming you have git, antlr4 and java installed)
+
 	```
 		git clone https://github.com/jrivera97/PLC_Project2.git
 		antlr4 Calculator.g4 -visitor
