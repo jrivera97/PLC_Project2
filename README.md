@@ -1,7 +1,7 @@
 # PLC_Project2
 
 ## How to Run the Code
-	To run the code, follow these steps:
+To run the code, follow these steps:
 		1. Compile the antlr code with the -visitor flag
 		2. Compile the java files
 		3. Run the main program with the tests
