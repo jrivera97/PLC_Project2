@@ -2,3 +2,9 @@ define myfunc(a,b) {
 	return 4
 }
 myfunc(1,2)
+
+if(1 == 1) {
+	x = 4
+}
+
+x

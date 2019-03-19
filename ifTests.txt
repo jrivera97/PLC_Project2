@@ -4,7 +4,10 @@ x++
 x++
 x
 
-myfunc(1,2)
+
+define myFunc(a,b) {return 1}
+myFunc(1,2)
+
 
 if(2 == 1)
 	print(hi)
