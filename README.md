@@ -13,5 +13,4 @@ In order to complete these steps, use these commands in terminal (assuming you h
 			javac *.java
 			java Main <testfile>.txt
 		```
-
-	Where <testfile>.txt is simply the name of the test file you wish to use
+Where <testfile>.txt is simply the name of the test file you wish to use
