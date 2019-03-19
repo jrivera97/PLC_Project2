@@ -4,8 +4,10 @@ x++
 x++
 x
 
+
 define myFunc(a,b) {return 1}
 myFunc(1,2)
+
 
 if(2 == 1)
 	print(hi)
@@ -32,4 +34,3 @@ for(x=1;x<4;x++) {
         print(inside)
     }
 }
-

@@ -17,6 +17,22 @@ int scope = 0; //global scope
 
 Scanner sc = new Scanner(System.in);
 
+public void clearScope() {
+//	System.out.println(scopes.entrySet());
+	for (Map.Entry<String, Integer> entry : scopes.entrySet()) {
+	//	System.out.println("HELLO???");
+		//System.out.println("cscope: " + scope + " key: " + entry.getKey());
+    if(entry.getValue() >= scope) {
+			scopes.remove(entry.getKey());
+			memory.remove(entry.getKey());
+			//System.out.println("mem key: " + entry.getKey() + " val: " + memory.get(entry.getKey()));
+		}
+// Do things with the list
+	}
+	scope--;
+}
+
+
     @Override
     public Double visitTopExpr(CalculatorParser.TopExprContext ctx) {
         Double value = this.visit(ctx.expr());
@@ -45,7 +61,8 @@ Scanner sc = new Scanner(System.in);
         }
         else {
             // variable not defined, create a spot in memory
-            scopes.put(id, scope);
+            memory.put(id, value);
+			scopes.put(id, scope);
         }
 
         return 100.0;
@@ -61,7 +78,10 @@ Scanner sc = new Scanner(System.in);
 
         Double value;
         String id = ctx.ID().getText();
-
+				if(scopes.containsKey(id) && scopes.get(id) > scope)
+				{
+					throw new RuntimeException("variable not in scope");
+				}
         if (memory.containsKey(id)) {
             // variable already defined
             value = (memory.get(id));
@@ -162,6 +182,7 @@ Scanner sc = new Scanner(System.in);
             // define variable and increment
             value = 0.0;
             memory.put(id, value+1);
+						scopes.put(id, scope);
         }
         return value;
     }
@@ -228,7 +249,7 @@ Scanner sc = new Scanner(System.in);
                 System.out.println("scope: " + scope);
                 evaluated = true;
                 this.visit(condition.stat_block());
-                scope--;
+                clearScope();
                 System.out.println("scope: " + scope);
             }
 
@@ -238,7 +259,7 @@ Scanner sc = new Scanner(System.in);
             scope++;
             System.out.println("scope: " + scope);
             this.visit(ctx.stat_block());
-            scope--;
+            clearScope();
             System.out.println("scope: " + scope);
         }
 
@@ -264,7 +285,7 @@ Scanner sc = new Scanner(System.in);
             toEvaluate = (value != 0)? true : false;
         }
 
-        scope--;
+        clearScope();
         System.out.println("scope: " + scope);
 
         return 70.0;
@@ -274,6 +295,7 @@ Scanner sc = new Scanner(System.in);
     public Double visitFor_stat(CalculatorParser.For_statContext ctx) {
 
         scope++;
+
         System.out.println("scope: " + scope);
 
         // evaluate initial statement
@@ -295,11 +317,12 @@ Scanner sc = new Scanner(System.in);
             toEvaluate = (conditionValue != 0)? true : false;
         }
 
-        scope--;
+        clearScope();
         System.out.println("scope: " + scope);
 
         return 50.0;
     }
+
 
     @Override
     public Double visitFunction_def(CalculatorParser.Function_defContext ctx)
@@ -328,5 +351,6 @@ Scanner sc = new Scanner(System.in);
 
         return 30.0;
     }
+
 
 }
