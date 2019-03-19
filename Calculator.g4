@@ -20,7 +20,7 @@ while_stat: WHILE condition_block;
 
 for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block;
 
-func_block: stat_block? RETURN expr
+func_block: stat_block? RETURN expr;
 
 condition_block: '(' expr ')' stat_block;
 
@@ -54,7 +54,7 @@ expr:
 
 func:
     f=READ '()'                                 #readFunc
-    | f=(PRINT | SQRT | SIN 
+    | f=(PRINT | SQRT | SIN
         | COS | EX | LN ) '(' expr ')'          #argumentFunc
     | f=ID '(' INT+ (',' INT+)* ')'                      #functionCall
     ;
@@ -99,3 +99,5 @@ INT : DIGIT+ ('.' DIGIT+)? ;
 
 NL : ( '\r' )? '\n' ;
 WS : ( ' ' | '\t' )+ -> skip ;
+
+RETURN : 'return';

@@ -8,10 +8,10 @@ import tl.antlr4.TLParser.ExpressionContext;
 
 
 class Functions {
-	private List<String> params;
+	private List<TerminalNode> params;
 	private ParserRuleContext ctx;
 
-	Functions(List<String> params, ParserRuleContext ctx) {
+	Functions(List<TerminalNode> params, ParserRuleContext ctx) {
 		this.params = params;
 		this.ctx = ctx;
 	}

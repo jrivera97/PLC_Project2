@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import javax.lang.model.util.ElementScanner6;
-
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class EvalVisitor extends CalculatorBaseVisitor<Double> {
 
@@ -148,10 +148,10 @@ Scanner sc = new Scanner(System.in);
 
     @Override
     public Double visitIncrementExpr(CalculatorParser.IncrementExprContext ctx) {
-        
+
         Double value;
         String id = ctx.ID().getText();
-        
+
         if (memory.containsKey(id)) {
             // variable already defined
             value = (memory.get(id));
@@ -299,5 +299,15 @@ Scanner sc = new Scanner(System.in);
 
         return 0.0;
     }
+		@Override
+		public Double visitFunciton_def(CalculatorParser.Function_defContext ctx)
+		{
+			List<TerminalNode> params = ctx.idList() != null ? ctx.idList().Identifier() : new ArrayList<TerminalNode>();
+			Functions funcy = new Functions(params, ctx);
+			String str = "";
+			str = funcy.getCtx().ID().getText();
+			System.out.println("Str: " + str);
+			return 0.0;
+		}
 
 }
