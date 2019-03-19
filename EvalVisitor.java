@@ -302,7 +302,7 @@ Scanner sc = new Scanner(System.in);
     }
 
 		@Override
-		public Double visitFunciton_def(CalculatorParser.Function_defContext ctx)
+		public Double visitFunction_def(CalculatorParser.Function_defContext ctx)
 		{
 			List<TerminalNode> params = ctx.ID() != null ? ctx.ID() : new ArrayList<TerminalNode>();
 			Functions funcy = new Functions(params, ctx);
