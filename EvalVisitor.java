@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.*;
 
 import javax.lang.model.util.ElementScanner6;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -299,13 +300,14 @@ Scanner sc = new Scanner(System.in);
 
         return 0.0;
     }
+
 		@Override
 		public Double visitFunciton_def(CalculatorParser.Function_defContext ctx)
 		{
-			List<TerminalNode> params = ctx.idList() != null ? ctx.idList().Identifier() : new ArrayList<TerminalNode>();
+			List<TerminalNode> params = ctx.ID() != null ? ctx.ID() : new ArrayList<TerminalNode>();
 			Functions funcy = new Functions(params, ctx);
 			String str = "";
-			str = funcy.getCtx().ID().getText();
+			str = funcy.getCtx().getText();
 			System.out.println("Str: " + str);
 			return 0.0;
 		}
