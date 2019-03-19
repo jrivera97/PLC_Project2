@@ -1,2 +1,4 @@
-define myFunc(a,b)
-myFunc(1,2)
+define myfunc(a,b) {
+	return 4
+}
+myfunc(1,2)

@@ -4,7 +4,6 @@ x++
 x++
 x
 
-define myfunc (a,b) { return 25 }
 myfunc(1,2)
 
 if(2 == 1)

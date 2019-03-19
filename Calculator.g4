@@ -12,7 +12,7 @@ top_stat:
     | stat
 ;
 
-function_def: DEFINE ID '(' params ')' func_block ;
+function_def: DEFINE ID '(' params ')' stat_block ;
 
 params: ID+ (',' ID+)* ;
 
@@ -22,18 +22,16 @@ while_stat: WHILE condition_block;
 
 for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block;
 
-func_block: stat_block? RETURN expr;
-
 condition_block: '(' expr ')' stat_block;
 
 stat_block:
     '{' stat* '}'
-    | stat
-    | NL
+    | NL? stat
 ;
 
 stat:
-    expr                                        #topExpr
+    RETURN expr                                 #returnStat
+    | expr                                      #topExpr
     | ID '=' expr                               #assignmentStat
     | '"' ID? '"'                               #stringStat
     | COMM NL                                   #comment
@@ -58,7 +56,7 @@ func:
     f=READ '()'                                 #readFunc
     | f=(PRINT | SQRT | SIN
         | COS | EX | LN ) '(' expr ')'          #argumentFunc
-    | f=ID '(' args? ')'                       #functionCall
+    | f=ID '(' args? ')'                        #functionCall
     ;
 
 args: INT+ (',' INT+)* ;
