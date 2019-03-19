@@ -301,15 +301,17 @@ Scanner sc = new Scanner(System.in);
         return 0.0;
     }
 
-		@Override
-		public Double visitFunction_def(CalculatorParser.Function_defContext ctx)
-		{
-			List<TerminalNode> params = ctx.ID() != null ? ctx.ID() : new ArrayList<TerminalNode>();
-			Functions funcy = new Functions(params, ctx);
-			String str = "";
-			str = funcy.getCtx().getText();
-			System.out.println("Str: " + str);
-			return 0.0;
-		}
+
+    @Override
+    public Double visitFunction_def(CalculatorParser.Function_defContext ctx)
+    {
+        List<TerminalNode> params = ctx.params() != null ? ctx.params().ID() : new ArrayList<TerminalNode>();
+        Functions funcy = new Functions(params, ctx);
+        String str = "";
+        str = funcy.getCtx().getText();
+        System.out.println("Str: " + str);
+        return 0.0;
+    }
+
 
 }
