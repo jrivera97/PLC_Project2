@@ -368,5 +368,19 @@ public void clearScope() {
         return 30.0;
     }
 
+    @Override
+    public Double visitStat_block(CalculatorParser.Stat_blockContext ctx) {
+        
+        List<CalculatorParser.Top_statContext> stats =  ctx.top_stat();
+
+        System.out.println(stats);
+
+        for(CalculatorParser.Top_statContext stat : stats) {
+            this.visit(stat);
+        }
+
+        return 2000.0;
+    }
+
 
 }

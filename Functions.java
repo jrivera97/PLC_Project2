@@ -41,13 +41,13 @@ class Functions {
 
     EvalVisitor evalVisitor = new EvalVisitor();
     for (int i = 0; i < params.size(); i++) {
-      Double value = evalVisitor.visit(args.get(i));
+      System.out.println("helloo");
+      Double value = Double.parseDouble(args.get(i).getText());
       System.out.println("Key: " + params.get(i).getText() + " Value: " + value);
       function_mem.put(params.get(i).getText(), value);
     }
-    EvalVisitor evalVistorNext = new EvalVisitor();
-
-    Double ret = evalVistorNext.visit(this.ctx.stat_block());
+    EvalVisitor evalVisitorNext = new EvalVisitor();
+    Double ret = evalVisitorNext.visit(this.ctx.stat_block());
 
     System.out.println(ret);
     return ret;
