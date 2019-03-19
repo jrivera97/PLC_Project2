@@ -14,7 +14,6 @@ if (2==1) {
 	print(heyo)
 }
 
-
 if (x==1) {
     print(1)
 }
@@ -22,13 +21,15 @@ else {
     print(4)
 }
 
-
 while(x<5) {
     x = x+1
     x
 }
 
 for(x=1;x<4;x++) {
-    print(jose)
+    print(outside)
+    for(y=0;y<3;y++) {
+        print(inside)
+    }
 }
 

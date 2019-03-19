@@ -25,12 +25,13 @@ for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block;
 condition_block: '(' expr ')' stat_block;
 
 stat_block:
-    '{' stat* '}'
-    | NL? stat
+    '{' top_stat* '}'
+    | NL? top_stat
 ;
 
 stat:
     RETURN expr                                 #returnStat
+    | ID ADD ADD                                #incrementExpr
     | expr                                      #topExpr
     | ID '=' expr                               #assignmentStat
     | '"' ID? '"'                               #stringStat
@@ -48,7 +49,6 @@ expr:
     | op=NOT expr 								#notExpr
     | INT                                       #intAtom
     | ID                                        #idAtom
-    | ID ADD ADD                                #incrementExpr
     | func                                      #functionExpr
     ;
 

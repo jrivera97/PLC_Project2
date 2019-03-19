@@ -30,7 +30,7 @@ Scanner sc = new Scanner(System.in);
 		} catch (RuntimeException e) {
 
 		}
-		        return 0.0;
+		        return 110.0;
 		    }
 
     @Override
@@ -45,10 +45,10 @@ Scanner sc = new Scanner(System.in);
         }
         else {
             // variable not defined, create a spot in memory
-            memory.put(id, value);
+            scopes.put(id, scope);
         }
 
-        return 0.0;
+        return 100.0;
     }
 
     @Override
@@ -242,7 +242,7 @@ Scanner sc = new Scanner(System.in);
             System.out.println("scope: " + scope);
         }
 
-        return 0.0;
+        return 90.0;
     }
 
 
@@ -267,7 +267,7 @@ Scanner sc = new Scanner(System.in);
         scope--;
         System.out.println("scope: " + scope);
 
-        return 0.0;
+        return 70.0;
     }
 
     @Override
@@ -298,7 +298,7 @@ Scanner sc = new Scanner(System.in);
         scope--;
         System.out.println("scope: " + scope);
 
-        return 0.0;
+        return 50.0;
     }
 
     @Override
@@ -309,7 +309,7 @@ Scanner sc = new Scanner(System.in);
         String funcName = funcy.getCtx().ID().getText();
         linker.put(funcName, funcy);
 
-        return 0.0;
+        return 20.0;
     }
 
     @Override
@@ -326,7 +326,7 @@ Scanner sc = new Scanner(System.in);
         List<TerminalNode> args = ctx.args() != null ? ctx.args().INT() : new ArrayList<TerminalNode>();
         funcy.call(args);
 
-        return 0.0;
+        return 30.0;
     }
 
 }
