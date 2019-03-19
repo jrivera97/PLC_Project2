@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         if (args.length == 0) {
-            args = new String[]{"src/main/mu/test.mu"};
+            args = new String[]{"./temptests.txt"};
         }
 
         System.out.println("parsing: " + args[0]);

@@ -1,5 +1,5 @@
 import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -27,23 +27,29 @@ class Functions {
 	CalculatorParser.Function_defContext getCtx() {
 		return this.ctx;
 	}
-	public Double call(List<TerminalNode> params) {
-        int compare = Integer.compare(params.size(), this.params.size());
-        if (compare < 0) {
-            throw new RuntimeException("too few arguments");
-        }
-        else if (compare > 0) {
-          throw new RuntimeException("too many arguments");
-        }
-	
-        EvalVisitor evalVisitor = new EvalVisitor();
-        for (int i = 0; i < this.params.size(); i++) {
-            Double value = evalVisitor.visit(params.get(i));
-        }
-        EvalVisitor evalVistorNext = new EvalVisitor();
-	
-        Double ret = evalVistorNext.visit(this.ctx.stat_block());
-        
-        return ret;
+	public Double call(List<TerminalNode> args) {
+
+    HashMap<String, Double> function_mem = new HashMap<String, Double>();
+
+    int compare = Integer.compare(args.size(), params.size());
+    if (compare < 0) {
+      throw new RuntimeException("too few arguments");
     }
+    else if (compare > 0) {
+      throw new RuntimeException("too many arguments");
+    }
+
+    EvalVisitor evalVisitor = new EvalVisitor();
+    for (int i = 0; i < params.size(); i++) {
+      Double value = evalVisitor.visit(args.get(i));
+      System.out.println("Key: " + params.get(i).getText() + " Value: " + value);
+      function_mem.put(params.get(i).getText(), value);
+    }
+    EvalVisitor evalVistorNext = new EvalVisitor();
+
+    Double ret = evalVistorNext.visit(this.ctx.stat_block());
+
+    System.out.println(ret);
+    return ret;
+  }
 }

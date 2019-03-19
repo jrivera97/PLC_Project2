@@ -1,7 +1,3 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.*;
 
 import javax.lang.model.util.ElementScanner6;
@@ -342,6 +338,7 @@ public void clearScope() {
         }
 
         List<TerminalNode> args = ctx.args() != null ? ctx.args().INT() : new ArrayList<TerminalNode>();
+        System.out.println(args);
         funcy.call(args);
 
         return 30.0;
