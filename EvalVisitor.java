@@ -32,7 +32,6 @@ public void clearScope() {
 	scope--;
 }
 
-
     @Override
     public Double visitTopExpr(CalculatorParser.TopExprContext ctx) {
         Double value = this.visit(ctx.expr());
@@ -48,6 +47,12 @@ public void clearScope() {
 		}
 		        return 110.0;
 		    }
+
+    @Override
+    public Double visitReturnStat(CalculatorParser.ReturnStatContext ctx) {
+        return this.visit(ctx.expr());
+    }
+
 
     @Override
     public Double visitAssignmentStat(CalculatorParser.AssignmentStatContext ctx) {
@@ -246,21 +251,17 @@ public void clearScope() {
 
             if(toEvaluate) {
                 scope++;
-                System.out.println("scope: " + scope);
                 evaluated = true;
                 this.visit(condition.stat_block());
                 clearScope();
-                System.out.println("scope: " + scope);
             }
 
         }
 
         if(!evaluated && ctx.stat_block() != null) {
             scope++;
-            System.out.println("scope: " + scope);
             this.visit(ctx.stat_block());
             clearScope();
-            System.out.println("scope: " + scope);
         }
 
         return 90.0;
@@ -271,7 +272,6 @@ public void clearScope() {
     public Double visitWhile_stat(CalculatorParser.While_statContext ctx) {
 
         scope++;
-        System.out.println("scope: " + scope);
 
         // check condition
         Double value = this.visit(ctx.condition_block().expr());
@@ -286,8 +286,6 @@ public void clearScope() {
         }
 
         clearScope();
-        System.out.println("scope: " + scope);
-
         return 70.0;
     }
 
@@ -295,8 +293,6 @@ public void clearScope() {
     public Double visitFor_stat(CalculatorParser.For_statContext ctx) {
 
         scope++;
-
-        System.out.println("scope: " + scope);
 
         // evaluate initial statement
         this.visit(ctx.stat(0));
@@ -318,7 +314,6 @@ public void clearScope() {
         }
 
         clearScope();
-        System.out.println("scope: " + scope);
 
         return 50.0;
     }

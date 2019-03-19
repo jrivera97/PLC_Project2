@@ -5,8 +5,8 @@ x++
 x
 
 
-define myFunc(a,b) {return 1}
-myFunc(1,2)
+define myfunc(a,b) {return 1}
+myfunc(1,2)
 
 
 if(2 == 1)

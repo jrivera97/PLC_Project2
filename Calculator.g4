@@ -30,8 +30,8 @@ stat_block:
 ;
 
 stat:
-    RETURN expr                                 #returnStat
-    | ID ADD ADD                                #incrementExpr
+    ID ADD ADD                                  #incrementExpr
+    | ID '(' args? ')'                          #functionCall
     | expr                                      #topExpr
     | ID '=' expr                               #assignmentStat
     | '"' ID? '"'                               #stringStat
@@ -41,6 +41,7 @@ stat:
 
 expr:
     '(' expr ')'                                #parenthesisExpr
+    | RETURN expr                               #returnStat
     | SUB expr                                  #negateExpr
     | expr op=(MUL | DIV | ADD | SUB) expr      #mathExpr
     | expr op=(COMPARE | GREATER | LESS
@@ -56,7 +57,6 @@ func:
     f=READ '()'                                 #readFunc
     | f=(PRINT | SQRT | SIN
         | COS | EX | LN ) '(' expr ')'          #argumentFunc
-    | f=ID '(' args? ')'                        #functionCall
     ;
 
 args: INT+ (',' INT+)* ;
@@ -68,6 +68,7 @@ ELSE : 'else';
 WHILE : 'while';
 FOR : 'for' ;
 DEFINE : 'define' ;
+RETURN : 'return';
 
 READ : 'read' ;
 SQRT : 'sqrt' ;
@@ -101,5 +102,3 @@ INT : DIGIT+ ('.' DIGIT+)? ;
 
 NL : ( '\r' )? '\n' ;
 WS : ( ' ' | '\t' )+ -> skip ;
-
-RETURN : 'return';
