@@ -5,3 +5,5 @@
 *.txt
 # Compiled class file
 *.class
+ifTests.txt
+temptests.txt

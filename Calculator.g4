@@ -12,7 +12,7 @@ top_stat:
     | stat
 ;
 
-function_def: DEFINE NAME '(' params? ')' func_block ;
+function_def: DEFINE ID '(' params ')' func_block ;
 
 params: ID+ (',' ID+)* ;
 
@@ -58,7 +58,7 @@ func:
     f=READ '()'                                 #readFunc
     | f=(PRINT | SQRT | SIN
         | COS | EX | LN ) '(' expr ')'          #argumentFunc
-    | f=NAME '(' args? ')'                       #functionCall
+    | f=ID '(' args? ')'                       #functionCall
     ;
 
 args: INT+ (',' INT+)* ;
@@ -99,7 +99,6 @@ NOT : '!' ;
 COMM : '/*' (.)*? '*/' ;
 
 ID : [_A-Za-z]+ ;
-NAME: [_a-z]+ ;
 INT : DIGIT+ ('.' DIGIT+)? ;
 
 NL : ( '\r' )? '\n' ;
