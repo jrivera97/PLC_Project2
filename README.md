@@ -6,7 +6,7 @@
 		2. Compile the java files
 		3. Run the main program with the tests
 
-	In order to complete these steps, use these commands in terminal (assuming you have git, antlr4 and java installed)
+In order to complete these steps, use these commands in terminal (assuming you have git, antlr4 and java installed)
 
 		```
 			antlr4 Calculator.g4 -visitor
