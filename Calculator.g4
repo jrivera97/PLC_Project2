@@ -12,7 +12,9 @@ top_stat:
     | stat
 ;
 
-function_def: DEFINE NAME '(' ID+ (',' ID+)* ')' func_block;
+function_def: DEFINE NAME '(' params? ')' func_block ;
+
+params: ID+ (',' ID+)* ;
 
 if_stat: IF condition_block NL? (ELSE IF condition_block)* NL? (ELSE stat_block)?;
 
@@ -56,8 +58,10 @@ func:
     f=READ '()'                                 #readFunc
     | f=(PRINT | SQRT | SIN
         | COS | EX | LN ) '(' expr ')'          #argumentFunc
-    | f=NAME '(' INT+ (',' INT+)* ')'             #functionCall
+    | f=NAME '(' args? ')'                       #functionCall
     ;
+
+args: INT+ (',' INT+)* ;
 
 fragment DIGIT : [0-9] ;
 

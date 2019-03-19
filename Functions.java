@@ -17,7 +17,7 @@ class Functions {
 	}
 
 	ParserRuleContext getCtx() {
-		return this.ctx();
+		return this.ctx;
 	}
 	// public Double invoke(List<ExpressionContext> params, Map<String, Function> functions, Scope scope) {
   //       if (params.size() != this.params.size()) {
