@@ -11,7 +11,7 @@ public class EvalVisitor extends CalculatorBaseVisitor<Double> {
 
 /* Storage to save variables */
 private HashMap<String, Double> memory = new HashMap<String, Double>();
-private HashMap<String, Double> linker = new HashMap<String, Double>();
+private HashMap<String, Functions> linker = new HashMap<String, Functions>();
 private HashMap<String, Integer> scopes = new HashMap<String, Integer>();
 int scope = 0; //global scope
 
@@ -306,9 +306,26 @@ Scanner sc = new Scanner(System.in);
     {
         List<TerminalNode> params = ctx.params() != null ? ctx.params().ID() : new ArrayList<TerminalNode>();
         Functions funcy = new Functions(params, ctx);
-        String str = "";
-        str = funcy.getCtx().getText();
-        System.out.println("Str: " + str);
+        String funcName = funcy.getCtx().ID().getText();
+        linker.put(funcName, funcy);
+
+        return 0.0;
+    }
+
+    @Override
+    public Double visitFunctionCall(CalculatorParser.FunctionCallContext ctx)
+    {
+        String funcName = ctx.ID().getText();
+
+        // look up function
+        Functions funcy = linker.get(funcName);
+        if (funcy == null) {
+            throw new RuntimeException("function not found");
+        }
+
+        List<TerminalNode> args = ctx.args() != null ? ctx.args().INT() : new ArrayList<TerminalNode>();
+        funcy.call(args);
+
         return 0.0;
     }
 

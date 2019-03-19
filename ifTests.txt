@@ -4,7 +4,7 @@ x++
 x++
 x
 
-define myFunc(a,b)
+define myFunc(a,b) {return 1}
 myFunc(1,2)
 
 if(2 == 1)

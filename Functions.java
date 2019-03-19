@@ -17,35 +17,33 @@ import java.util.ArrayList;
 
 class Functions {
 	private List<TerminalNode> params;
-	private ParserRuleContext ctx;
+	private CalculatorParser.Function_defContext ctx;
 
-	Functions(List<TerminalNode> params, ParserRuleContext ctx) {
+	Functions(List<TerminalNode> params, CalculatorParser.Function_defContext ctx) {
 		this.params = params;
 		this.ctx = ctx;
 	}
 
-	ParserRuleContext getCtx() {
+	CalculatorParser.Function_defContext getCtx() {
 		return this.ctx;
 	}
-	// public Double invoke(List<ExpressionContext> params, Map<String, Function> functions, Scope scope) {
-  //       if (params.size() != this.params.size()) {
-  //           throw new RuntimeException("Illegal Function call");
-  //       }
-  //       Scope scopeNext = new Scope(null); // create function scope
-	//
-  //       EvalVisitor evalVisitor = new EvalVisitor(scope, functions);
-  //       for (int i = 0; i < this.params.size(); i++) {
-  //           TLValue value = evalVisitor.visit(params.get(i));
-  //           scopeNext.assignParam(this.params.get(i).getText(), value);
-  //       }
-  //       EvalVisitor evalVistorNext = new EvalVisitor(scopeNext,functions);
-	//
-  //       Double ret = 0.0;
-  //       try {
-  //       	evalVistorNext.visit(this.block);
-  //       } catch (Double returnValue) {
-  //       	ret = returnValue;
-  //       }
-  //       return ret;
-  //   }
+	public Double call(List<TerminalNode> params) {
+        int compare = Integer.compare(params.size(), this.params.size());
+        if (compare < 0) {
+            throw new RuntimeException("too few arguments");
+        }
+        else if (compare > 0) {
+          throw new RuntimeException("too many arguments");
+        }
+	
+        EvalVisitor evalVisitor = new EvalVisitor();
+        for (int i = 0; i < this.params.size(); i++) {
+            Double value = evalVisitor.visit(params.get(i));
+        }
+        EvalVisitor evalVistorNext = new EvalVisitor();
+	
+        Double ret = evalVistorNext.visit(this.ctx.stat_block());
+        
+        return ret;
+    }
 }
