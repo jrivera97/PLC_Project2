@@ -1,39 +1,34 @@
-x=2
-x
-x++
-x++
-x
 
+/*Expected output: 1
+                   2
+                   3
+                   */
 
-define fib(n) {
-    if(n <= 1)
-        return n
-    return (fib(n-1) + fib(n-2))
-}
-fib(1)
+x=4
+y=10
 
-if(2 == 1)
-	print(hi)
-if(2==1) print(hello)
-if (2==1) {
-	print(heyo)
+if(x <= 4) {
+	x-3
 }
 
-if (x==1) {
-    print(1)
+if(y >= 11) {
+    print(wrong)
+}
+
+if (x == y) {
+    print(wrong)
+}
+else if (x != y) {
+    x + y - 12
 }
 else {
-    print(4)
+    print(wrong)
 }
 
-while(x<5) {
-    x = x+1
+if(1 && 0) {
+    print(wrong)
+}
+else {
+    x=3
     x
-}
-
-for(x=1;x<4;x++) {
-    print(outside)
-    for(y=0;y<3;y++) {
-        print(inside)
-    }
 }
