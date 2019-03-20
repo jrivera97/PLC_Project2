@@ -29,7 +29,7 @@ class Functions {
 	}
 
 
-	public Double call(List<TerminalNode> args, HashMap<String, Integer> scopes, int scope, HashMap<String, Double> memory) {
+	public Double call(List<TerminalNode> args, HashMap<String, Integer> scopes, int scope, HashMap<String, Double> memory, HashMap<String, Functions> linker) {
 
     //HashMap<String, Double> function_mem = new HashMap<String, Double>();
 
@@ -43,8 +43,8 @@ class Functions {
 
 		String id = this.ctx.ID().getText();
 
-    EvalVisitor evalVisitor = new EvalVisitor();
-		//System.out.println("mem in func: "+ memory);
+    EvalVisitor evalVisitor = new EvalVisitor(memory, linker, scopes, scope);
+	//	System.out.println("mem in func: "+ memory);
     for (int i = 0; i < params.size(); i++) {
       //System.out.println("helloo");
       Double value = Double.parseDouble(args.get(i).getText());
@@ -57,7 +57,7 @@ class Functions {
 			//System.out.println(scope);
 			scopes.put(params.get(i).getText(), scope);
     }
-    EvalVisitor evalVisitorNext = new EvalVisitor();
+    EvalVisitor evalVisitorNext = new EvalVisitor(memory, linker, scopes, scope);
 		//System.out.println("mem before end func" + memory);
     Double ret = evalVisitorNext.visitStat_block(this.ctx.stat_block());
 

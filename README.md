@@ -14,3 +14,7 @@ In order to complete these steps, use these commands in terminal (assuming you h
 			java Main <testfile>.txt
 		```
 Where <testfile>.txt is simply the name of the test file you wish to use
+
+### Known Bugs
+1. In user defined funcitons, the result prints twice
+2. Recursive functions evaluate, but the output is verbose
