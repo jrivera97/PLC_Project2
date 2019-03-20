@@ -1,12 +1,16 @@
 x = 1
 
 define add(x,y) {
-	if(x > 3)
-	{
-		return(x+y)
-	}
-    x++
-		return add(x, y)
+	z = 10
+	z
+	return x + y
 }
 
 add(1,3)
+
+for(x=1; x < 4; x++) {
+	for(y=0;y<3;y++) {
+		z = 10
+		z
+	}
+}
