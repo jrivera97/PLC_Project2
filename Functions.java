@@ -50,12 +50,21 @@ class Functions {
       Double value = Double.parseDouble(args.get(i).getText());
       //System.out.println("Key: " + params.get(i).getText() + " Value: " + value);
 			//scope++;
-      memory.put(params.get(i).getText(), Double.parseDouble(args.get(i).getText()));
+			if (memory.containsKey(id)) {
+					// variable already defined
+					memory.replace(params.get(i).getText(), Double.parseDouble(args.get(i).getText()));
+			}
+			else {
+					// variable not defined, create a spot in memory
+					memory.put(params.get(i).getText(), Double.parseDouble(args.get(i).getText()));
+					scopes.put(params.get(i).getText(), scope);
+			}
+
 			//System.out.println("mem in funfor: " + memory);
 			//System.out.println("On the Functions side: ");
 		//	System.out.println("mem Key: " + params.get(i).getText() + " mem val: " + Double.parseDouble(args.get(i).getText()));
 			//System.out.println(scope);
-			scopes.put(params.get(i).getText(), scope);
+
     }
     EvalVisitor evalVisitorNext = new EvalVisitor(memory, linker, scopes, scope);
 		//System.out.println("mem before end func" + memory);
