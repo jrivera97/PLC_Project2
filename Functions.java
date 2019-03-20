@@ -27,9 +27,11 @@ class Functions {
 	CalculatorParser.Function_defContext getCtx() {
 		return this.ctx;
 	}
-	public Double call(List<TerminalNode> args) {
 
-    HashMap<String, Double> function_mem = new HashMap<String, Double>();
+
+	public Double call(List<TerminalNode> args, HashMap<String, Integer> scopes, int scope, HashMap<String, Double> memory) {
+
+    //HashMap<String, Double> function_mem = new HashMap<String, Double>();
 
     int compare = Integer.compare(args.size(), params.size());
     if (compare < 0) {
@@ -39,17 +41,27 @@ class Functions {
       throw new RuntimeException("too many arguments");
     }
 
+		String id = this.ctx.ID().getText();
+
     EvalVisitor evalVisitor = new EvalVisitor();
+		//System.out.println("mem in func: "+ memory);
     for (int i = 0; i < params.size(); i++) {
-      System.out.println("helloo");
+      //System.out.println("helloo");
       Double value = Double.parseDouble(args.get(i).getText());
-      System.out.println("Key: " + params.get(i).getText() + " Value: " + value);
-      function_mem.put(params.get(i).getText(), value);
+      //System.out.println("Key: " + params.get(i).getText() + " Value: " + value);
+			//scope++;
+      memory.put(params.get(i).getText(), Double.parseDouble(args.get(i).getText()));
+			//System.out.println("mem in funfor: " + memory);
+			//System.out.println("On the Functions side: ");
+		//	System.out.println("mem Key: " + params.get(i).getText() + " mem val: " + Double.parseDouble(args.get(i).getText()));
+			//System.out.println(scope);
+			scopes.put(params.get(i).getText(), scope);
     }
     EvalVisitor evalVisitorNext = new EvalVisitor();
-    Double ret = evalVisitorNext.visit(this.ctx.stat_block());
+		//System.out.println("mem before end func" + memory);
+    Double ret = evalVisitorNext.visitStat_block(this.ctx.stat_block());
 
-    System.out.println(ret);
+    //System.out.println(ret);
     return ret;
   }
 }
