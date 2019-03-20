@@ -1,0 +1,41 @@
+/* Expected output: 1
+                    2
+                    3
+                    4
+                    5
+                    outside
+                    inside
+                    inside
+                    inside
+                    outside
+                    inside
+                    inside
+                    inside
+                    outside
+                    inside
+                    inside
+                    inside
+                    11
+                    0
+                    */
+
+x=0
+
+while(x<5) {
+    x = x+1
+    x
+}
+
+for(x=1; x<4; x++) {
+    print(outside)
+    for(y=0;y<3;y++) {
+        print(inside)
+    }
+}
+
+if(2 < 5) {
+    z = 10
+    z+1
+}
+
+z
