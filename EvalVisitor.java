@@ -9,14 +9,16 @@ public class EvalVisitor extends CalculatorBaseVisitor<Double> {
 private HashMap<String, Double> memory = new HashMap<String, Double>();
 private HashMap<String, Functions> linker = new HashMap<String, Functions>();
 private HashMap<String, Integer> scopes = new HashMap<String, Integer>();
-int scope = 0; //global scope
+int scope; //global scope
+
+public EvalVisitor(HashMap<String, Functions> linker, HashMap<String, Integer> scopes, int scope, HashMap<String, Double> memory)
 
 Scanner sc = new Scanner(System.in);
 
 public void clearScope() {
 //	System.out.println(scopes.entrySet());
 	for (Map.Entry<String, Integer> entry : scopes.entrySet()) {
-	//	System.out.println("HELLO???");
+	System.out.println("HELLO???");
 		//System.out.println("cscope: " + scope + " key: " + entry.getKey());
     if(entry.getValue() >= scope) {
 			scopes.remove(entry.getKey());
@@ -360,10 +362,9 @@ public void clearScope() {
         if (funcy == null) {
             throw new RuntimeException("function not found");
         }
-
         List<TerminalNode> args = ctx.args() != null ? ctx.args().INT() : new ArrayList<TerminalNode>();
         System.out.println(args);
-        funcy.call(args);
+        funcy.call(args, scopes, scope, memory);
 
         return 30.0;
     }
@@ -371,15 +372,18 @@ public void clearScope() {
     @Override
     public Double visitStat_block(CalculatorParser.Stat_blockContext ctx) {
         
-        List<CalculatorParser.Top_statContext> stats =  ctx.top_stat();
+        List<CalculatorParser.Top_statContext> topstats =  ctx.top_stat();
 
-        System.out.println(stats);
-
-        for(CalculatorParser.Top_statContext stat : stats) {
-            this.visit(stat);
+        Double value = 0.0;
+        System.out.println(memory);
+        System.out.println("------");
+        for(CalculatorParser.Top_statContext topstat : topstats) {
+            if (this.visit(topstat) != null){
+                value = this.visit(topstat);
+            }
         }
 
-        return 2000.0;
+        return value;
     }
 
 

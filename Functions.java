@@ -43,7 +43,7 @@ class Functions {
 
 		String id = this.ctx.ID().getText();
 
-    EvalVisitor evalVisitor = new EvalVisitor();
+    EvalVisitor evalVisitor = new EvalVisitor(memory, scope, scopes);
 		//System.out.println("mem in func: "+ memory);
     for (int i = 0; i < params.size(); i++) {
       //System.out.println("helloo");
@@ -55,11 +55,11 @@ class Functions {
 			//System.out.println("On the Functions side: ");
 		//	System.out.println("mem Key: " + params.get(i).getText() + " mem val: " + Double.parseDouble(args.get(i).getText()));
 			//System.out.println(scope);
-			scopes.put(params.get(i).getText(), scope);
+      scopes.put(params.get(i).getText(), scope);
+      System.out.println("in func: " + memory);
     }
-    EvalVisitor evalVisitorNext = new EvalVisitor();
 		//System.out.println("mem before end func" + memory);
-    Double ret = evalVisitorNext.visitStat_block(this.ctx.stat_block());
+    Double ret = evalVisitor.visitStat_block(this.ctx.stat_block());
 
     //System.out.println(ret);
     return ret;
