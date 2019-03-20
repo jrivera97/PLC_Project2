@@ -291,7 +291,7 @@ public void clearScope() {
             clearScope();
         }
 
-        return 90.0;
+        return 0.0;
     }
 
 
@@ -313,7 +313,7 @@ public void clearScope() {
         }
 
         clearScope();
-        return 70.0;
+        return 0.0;
     }
 
     @Override
@@ -342,7 +342,7 @@ public void clearScope() {
 
         clearScope();
 
-        return 50.0;
+        return 0.0;
     }
 
 
@@ -354,7 +354,7 @@ public void clearScope() {
         String funcName = funcy.getCtx().ID().getText();
         linker.put(funcName, funcy);
 
-        return 20.0;
+        return 0.0;
     }
 
     @Override
@@ -374,7 +374,7 @@ public void clearScope() {
 				//System.out.println("mem in eval: " + memory);
         funcy.call(args, scopes, scope, memory, linker);
 
-        return 30.0;
+        return 0.0;
     }
 
     @Override
@@ -386,13 +386,18 @@ public void clearScope() {
 		//	System.out.println(memory);
 			//System.out.println("------");
 			for(CalculatorParser.Top_statContext topstat : topstats) {
-					if (this.visit(topstat) != null){
-							value = this.visit(topstat);
+					
+							try {
+								value = this.visit(topstat);
+							} catch (Error e) {
+
+							}
+
 							//return value;
-					}
+
 			}
 
-			return value;
+			return 0.0;
     }
 
 
