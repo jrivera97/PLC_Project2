@@ -55,12 +55,11 @@ class Functions {
 			//System.out.println("On the Functions side: ");
 		//	System.out.println("mem Key: " + params.get(i).getText() + " mem val: " + Double.parseDouble(args.get(i).getText()));
 			//System.out.println(scope);
-      scopes.put(params.get(i).getText(), scope);
-      System.out.println("in func: " + memory);
+			scopes.put(params.get(i).getText(), scope);
     }
     EvalVisitor evalVisitorNext = new EvalVisitor(memory, linker, scopes, scope);
 		//System.out.println("mem before end func" + memory);
-    Double ret = evalVisitor.visitStat_block(this.ctx.stat_block());
+    Double ret = evalVisitorNext.visitStat_block(this.ctx.stat_block());
 
     //System.out.println(ret);
     return ret;

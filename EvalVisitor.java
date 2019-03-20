@@ -23,7 +23,7 @@ Scanner sc = new Scanner(System.in);
 public void clearScope() {
 //	System.out.println(scopes.entrySet());
 	for (Map.Entry<String, Integer> entry : scopes.entrySet()) {
-	System.out.println("HELLO???");
+	//	System.out.println("HELLO???");
 		//System.out.println("cscope: " + scope + " key: " + entry.getKey());
     if(entry.getValue() >= scope) {
 			scopes.remove(entry.getKey());
@@ -367,6 +367,7 @@ public void clearScope() {
         if (funcy == null) {
             throw new RuntimeException("function not found");
         }
+
         List<TerminalNode> args = ctx.args() != null ? ctx.args().INT() : new ArrayList<TerminalNode>();
       //  System.out.println("scope in eval: " + scope);
 				scope++;
