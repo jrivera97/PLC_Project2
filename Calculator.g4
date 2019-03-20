@@ -24,10 +24,7 @@ for_stat: FOR '(' stat ';' expr ';' stat ')' stat_block;
 
 condition_block: '(' expr ')' stat_block;
 
-stat_block:
-    '{' top_stat* '}'
-    | NL? top_stat
-;
+stat_block: '{' top_stat* '}';
 
 stat:
     ID ADD ADD                                  #incrementExpr
