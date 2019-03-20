@@ -12,21 +12,21 @@ if(x <= 4) {
 }
 
 if(y >= 11) {
-    print(wrong)
+    "wrong"
 }
 
 if (x == y) {
-    print(wrong)
+    "wrong"
 }
 else if (x != y) {
     x + y - 12
 }
 else {
-    print(wrong)
+    "wrong"
 }
 
 if(1 && 0) {
-    print(wrong)
+    "wrong"
 }
 else {
     x=3

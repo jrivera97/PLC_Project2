@@ -3,19 +3,7 @@
                     3
                     4
                     5
-                    outside
-                    inside
-                    inside
-                    inside
-                    outside
-                    inside
-                    inside
-                    inside
-                    outside
-                    inside
-                    inside
-                    inside
-                    11
+                    OoooOoooOooo11
                     0
                     */
 
@@ -27,9 +15,9 @@ while(x<5) {
 }
 
 for(x=1; x<4; x++) {
-    print(outside)
+    "O"
     for(y=0;y<3;y++) {
-        print(inside)
+        "o"
     }
 }
 
